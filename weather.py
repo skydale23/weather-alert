@@ -47,7 +47,7 @@ def send(message, to_number, carrier):
     #Send text message through SMS gateway of destination number
     server.sendmail(auth[0], to_number, message)
 
-
+#function to change timezone
 def convert_time_zone(start, convert_to):
 
     gmt = pytz.timezone('GMT')
