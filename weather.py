@@ -23,7 +23,7 @@ start_time = datetime.time(7)
 end_time = datetime.time(21)
 execute_time = '7:00'
 
-
+#list of all recipient carriers 
 carriers = {
 'att':    '@mms.att.net',
 'tmobile':' @tmomail.net',
