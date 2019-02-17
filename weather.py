@@ -13,7 +13,7 @@ with open('weather_users.txt', 'r') as f:
     users = json.load(f)
 f.close()
 
-#Get password
+#Get email password
 with open('weather_pass.txt', 'r') as f:
     password = f.readline()
 f.close()
