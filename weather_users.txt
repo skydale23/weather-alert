@@ -1,1 +1,1 @@
-[{"location": "New York, New York", "phone_number": "5167762241", "carrier": "att"}, {"location": "New York, New York", "phone_number": "8458262769", "carrier": "Verizon"}]
+[{"location": "New York, New York", "phone_number": "8458262769", "carrier": "Verizon"}]
