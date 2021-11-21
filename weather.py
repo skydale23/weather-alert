@@ -36,7 +36,7 @@ def send(message, to_number, carrier):
     #try except for carrier
     to_number = to_number + '{}'.format(carriers[carrier.lower()])
 
-    auth = ('weatherinfotoday@gmail.com', 'Itsyaboy')
+    auth = ('weatheralerttoday@gmail.com', 'Itsyaboy')
 
     # Establish a session with gmail's outgoing SMTP server
     # Need to have google allow less secure apps to make this work
@@ -118,7 +118,12 @@ def generate_message(location):
 
     return message
 
+for user in users:
+    message = generate_message(user['location'])
+    send(message, user['phone_number'], user['carrier'])
 
+
+'''
 def job():
     for user in users:
         message = generate_message(user['location'])
@@ -126,6 +131,8 @@ def job():
 
 schedule.every().day.at(execute_time).do(job)
 
+
 while True:
     schedule.run_pending()
     time.sleep(60) # wait one minute
+'''
