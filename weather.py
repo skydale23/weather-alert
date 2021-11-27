@@ -7,6 +7,7 @@ import pandas as pd
 import datetime
 import json
 import pickle
+from geopy.geocoders import Nominatim
 
 #Get user data (stored in json file)
 with open('weather_users.txt', 'r') as f:
@@ -55,6 +56,21 @@ def convert_time_zone(start, convert_to):
     end_time = start.astimezone(new_time_zone)
 
     return end_time
+
+def get_long_lat(address_string):
+    
+    geolocator = Nominatim(user_agent = 'test')
+
+    try:
+        location = geolocator.geocode(address_string)
+    except AttributeError:
+        print("")
+    else:
+        latitude = location.latitude
+        longitude = location.longitude
+
+    return latitude, longitude
+
 
 def generate_message(location):
 
