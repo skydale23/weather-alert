@@ -1,0 +1,5 @@
+carrier_email_domain:
+  att: '@mms.att.net'
+  tmobile: '@tmomail.net'
+  verizon: '@vtext.com'
+  sprint': '@page.nextel.com'
