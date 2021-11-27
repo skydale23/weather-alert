@@ -7,7 +7,17 @@ import pandas as pd
 import datetime
 import json
 import pickle
+import yaml
 from geopy.geocoders import Nominatim
+
+
+def get_credentials(credentials_file):
+    with open(credentials_file, "r") as f:
+        try:
+            creds = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            print(e)
+    return creds 
 
 #Get user data (stored in json file)
 with open('weather_users.txt', 'r') as f:
@@ -26,21 +36,19 @@ carriers = {
 'verizon':  '@vtext.com',
 'sprint':   '@page.nextel.com'}
 
-def send(message, to_number, carrier):
+def send(message, to_number, carrier, username, password):
 
     #try except for carrier
     to_number = to_number + '{}'.format(carriers[carrier.lower()])
-
-    auth = ('weatheralerttoday@gmail.com', '***REMOVED***')
 
     # Establish a session with gmail's outgoing SMTP server
     # Need to have google allow less secure apps to make this work
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(auth[0], auth[1])
+    server.login(username, password)
 
     #Send text message through SMS gateway of destination number
-    server.sendmail(auth[0], to_number, message)
+    server.sendmail(username, to_number, message)
 
 def get_long_lat(address_string):
     """Convert an address string to latitude and longitude coordinates""" 
@@ -51,9 +59,9 @@ def get_long_lat(address_string):
     longitude = location.longitude
     return latitude, longitude
 
-def get_daily_weather(latitude, longitude, days_in_future = 0):
+def get_daily_weather(latitude, longitude, api_key, days_in_future = 0):
     """Return weather information at a specified latitude and longitude"""
-    owm = pyowm.OWM('***REMOVED***')
+    owm = pyowm.OWM(api_key)
     mgr = owm.weather_manager()
     one_call = mgr.one_call(latitude, longitude)
     fc = one_call.forecast_daily[days_in_future]
@@ -84,8 +92,11 @@ def generate_message(rain, snow, precip_prob, min_temp, max_temp):
     return message
 
 if __name__ == '__main__':
+    creds = get_credentials("credentials.yml")
+
     for user in users:
         latitude, longitude = get_long_lat(user['location'])
-        rain, snow, precip_prob, min_temp, max_temp = get_daily_weather(latitude, longitude)
+        rain, snow, precip_prob, min_temp, max_temp = get_daily_weather(latitude, longitude, creds['pyowm']['api_key'])
         message = generate_message(rain, snow, precip_prob, min_temp, max_temp)
-        send(message, user['phone_number'], user['carrier'])
+        send(message, user['phone_number'], user['carrier'],
+            creds['gmail']['username'], creds['gmail']['password'])
