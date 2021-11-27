@@ -1,1 +1,0 @@
-[{"location": "New York, New York", "phone_number": "8458262769", "carrier": "Verizon"}]
