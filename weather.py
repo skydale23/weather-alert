@@ -1,12 +1,6 @@
 import smtplib
-import schedule
-import time
-import pytz
 import pyowm
-import pandas as pd
-import datetime
 import json
-import pickle
 import yaml
 from geopy.geocoders import Nominatim
 
