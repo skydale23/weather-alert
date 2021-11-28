@@ -2,3 +2,4 @@ credentials.yml
 weather_users.json
 .vscode
 weather_alert.ipynb
+.DS_Store
