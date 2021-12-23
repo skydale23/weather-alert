@@ -13,6 +13,6 @@ If you want to leverage this code, follow the steps below:
 
 1. Fork the project
 2. Install the packages in requirements.txt file. 
-3. Get an api_key from [open weather map] (https://openweathermap.org/appid)
+3. Get an api_key from [open weather map](https://openweathermap.org/appid)
 4. Create a credentials.yml file. You'll need to add an api key, and a gmail user name, and password. Follow the format in the credentials_template.yml file and replace with your specific credential values. Make sure the file is named "credentials.yml"
 5. Set up a cronjob (or preferred scheduling solution) to run the script on a regular basis.
